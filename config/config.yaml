@@ -1,0 +1,49 @@
+logging:
+  interval: 5
+  image_log_count: 16
+
+data:
+  dataset: "CXR"
+  img_channels: 3
+  train_percentage: 0.9
+  batch_size: 16
+
+preprocessing:
+  normalize: true
+  normalize_mean: 0.5
+  normalize_std: 0.5
+  rotation: false         
+  rotation_deg: 5
+  rotation_p: 0.1   
+  flip_horizontal: false  
+  flip_h_p: 0.1
+  flip_vertical: false    
+  flip_v_p: 0.1
+  gaussian_noise: false 
+  noise_percentage: 0.1
+  gaussian_p: 0.1
+
+training:
+  epochs: 50
+
+validating:
+  interval: 5
+
+generator:
+  mode: "classic"
+  lr: 0.00001
+  beta_1: 0.0
+  beta_2: 0.9
+  lambda_adv_loss: 0.5
+  lambda_l1_loss: 0.2
+
+critic:
+  mode: "gp"                      # classic (weight clip) or gp
+  lr: 0.00001
+  beta_1: 0.0
+  beta_2: 0.9
+  lambda_wasserstrein: 1.0
+  lambda_gp: 10
+  weight_clip: 0.01           
+  c_iter: 5
+
