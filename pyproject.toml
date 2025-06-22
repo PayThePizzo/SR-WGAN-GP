@@ -1,0 +1,69 @@
+[tool.poetry]
+name = "Super Resolution WGAN"
+version = "0.0.1"
+description = "Super-Resolution of Medical MNIST Images Using Wasserstein Generative Adversarial Networks (WGANs)."
+authors = ["PayThePizzo <872966@stud.unive.it>"]
+readme = "README.md"
+keywords = ["numpy", "pytorch", "Medical MNIST", "GAN", "WGAN"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+poetry = "1.8.5"
+numpy = "^2.1.2"
+pandas = "^2.2.3"
+matplotlib = "^3.9.2"
+seaborn = "^0.13.2"
+scipy = "^1.14.1"
+scikit-learn = "^1.5.2"
+torch = "^2.5.1"
+torchvision = "^0.20.1"
+torchaudio = "^2.5.1"
+opencv-python = "^4.10.0.84"
+pillow = "^11.0.0"
+tensorboard = "^2.18.0"
+scikit-image = "^0.25.0"
+pydantic = "^2.11.5"
+pyyaml = "^6.0.2"
+torchmetrics = {extras = ["image"], version = "^1.7.2"}
+lpips = "^0.1.4"
+pytorch-fid = "^0.3.0"
+
+
+[tool.poetry.group.notebook.dependencies]
+jupyterlab = "^4.2.5"
+notebook = "^7.2.2"
+
+
+[tool.poetry.group.test.dependencies]
+psutil = "^6.1.0"
+logging = "^0.4.9.6"
+memory-profiler = "^0.61.0"
+
+
+[tool.poetry.group.lint.dependencies]
+flake8 = "^7.1.1"
+flake8-docstrings = "^1.7.0"
+flake8-bugbear = "^24.8.19"
+flake8-comprehensions = "^3.15.0"
+flake8-bandit = "^4.1.1"
+flake8-simplify = "^0.21.0"
+flake8-warnings = "^0.4.1"
+flake8-clean-block = "^0.1.2"
+flake8-literal = "^1.4.0"
+flake8-quotes = "^3.4.0"
+flake8-functions-names = "^0.4.0"
+flake8-variables-names = "^0.0.6"
+flake8-functions = "^0.0.8"
+flake8-docstring-checker = "^1.2"
+black = "^24.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+dependencies = [
+    "mkdocstrings-python",
+]
