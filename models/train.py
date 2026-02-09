@@ -19,7 +19,7 @@ sys.path.append((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from main import data_dir, conf_path
 from config.config_parser import load_from_config, save_to_config
-from src.med_mnist_data_loader import get_med_mnist_train_val_loaders
+from src.data_loader import get_med_mnist_train_val_loaders, get_40mic_train_val_loaders
 
 # =============================================================================
 # Configuration
@@ -89,6 +89,12 @@ val_loader = None
 if dataset in ["BreastMRI", "CXR", "Hand"]:
     train_loader, val_loader = get_med_mnist_train_val_loaders(
         img_dir=os.path.join(data_dir, "MedicalMNIST", dataset),
+        data_config=config.data
+    )
+    #FIXME
+elif dataset == "40mic":
+    train_loader, val_loader = get_40mic_train_val_loaders(
+        img_dir=os.path.join(data_dir, "40mic"),
         data_config=config.data
     )
 else:
