@@ -16,7 +16,7 @@ sys.path.append((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from main import data_dir
 from config.config_parser import load_from_config
-from src.med_mnist_data_loader import get_med_mnist_test_loader
+from src.data_loader import get_med_mnist_test_loader, get_40mic_test_loader
 
 
 def super_resolve_test_set(
@@ -74,6 +74,11 @@ def super_resolve_test_set(
     if dataset in ["AbdomenCT", "BreastMRI", "CXR", "Hand"]:
         test_loader = get_med_mnist_test_loader(
             img_dir=real_path,
+            data_config=config.data
+        )
+    elif dataset == "40mic":
+        test_loader = get_40mic_test_loader(
+            img_dir=os.path.join(data_dir, "40mic"),
             data_config=config.data
         )
     else:
