@@ -3,7 +3,7 @@ logging:
   image_log_count: 16
 
 data:
-  dataset: "CXR"
+  dataset: "40mic"
   img_channels: 3
   train_percentage: 0.9
   batch_size: 16
