@@ -125,7 +125,6 @@ def get_med_mnist_train_val_loaders(
 
     return train_loader, val_loader
 
-
 def get_med_mnist_test_loader(
     img_dir, data_config: DataConfig
 ) -> DataLoader:
@@ -136,6 +135,81 @@ def get_med_mnist_test_loader(
 
     Args:
         img_dir (str): Path to dataset root folder.
+        data_config (DataConfig): Configuration with image channel count.
+
+    Returns:
+        DataLoader: A DataLoader for the test set with batch size 1.
+    """
+    test_dir = os.path.join(img_dir, 'Test')
+
+    dataset = SRFlatFolderDataset(
+        img_dir=test_dir,
+        lr_size=(28, 28),
+        hr_size=(64, 64),
+        img_channels=data_config.img_channels
+    )
+
+    return DataLoader(
+        dataset, batch_size=1,
+        shuffle=False, num_workers=4
+    )
+
+
+def get_40mic_train_val_loaders(
+    img_dir, data_config: DataConfig
+) -> Tuple[DataLoader, DataLoader]:
+    """Create train and validation DataLoaders for super-resolution datasets.
+
+    Gets the datasets (images) found at `img_dir/Train` and `img_dir/Val` and
+    creates DataLoaders for training and validation.
+
+    Args:
+        img_dir (str): Path to dataset `40mic` folder.
+        data_config (DataConfig): Configuration object containing batch size,
+            image channels, and train/val split ratio.
+
+    Returns:
+        tuple[DataLoader, DataLoader]: DataLoaders for training and validation.
+    """
+    train_dir = os.path.join(img_dir, 'Train')
+    val_dir = os.path.join(img_dir, 'Val')
+
+    train_dataset = SRFlatFolderDataset(
+        img_dir=train_dir,
+        lr_size=(28, 28),
+        hr_size=(64, 64),
+        img_channels=data_config.img_channels
+    )
+
+    val_dataset = SRFlatFolderDataset(
+        img_dir=val_dir,
+        lr_size=(28, 28),
+        hr_size=(64, 64),
+        img_channels=data_config.img_channels
+    )
+
+    train_loader = DataLoader(
+        train_dataset, batch_size=data_config.batch_size,
+        shuffle=True, num_workers=4
+    )
+
+    val_loader = DataLoader(
+        val_dataset, batch_size=data_config.batch_size,
+        shuffle=False, num_workers=4
+    )
+
+    return train_loader, val_loader
+
+def get_40mic_test_loader(
+    img_dir, data_config: DataConfig
+) -> DataLoader:
+    """Create test DataLoader for super-resolution evaluation.
+
+    Loads images from `img_dir/Test` and prepares paired LR and HR image
+    tensors for inference.
+
+    Args:
+        img_dir (str): Path to dataset `40mic` folder.
         data_config (DataConfig): Configuration with image channel count.
 
     Returns:
