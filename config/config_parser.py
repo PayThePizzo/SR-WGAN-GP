@@ -20,7 +20,7 @@ class LoggingConfig(BaseModel):
         image_log_count (int): Number of images to log for visualization.
     """
     interval: int = 10
-    image_log_count: int = 64
+    image_log_count: int = 16
     pass
 
 
@@ -28,15 +28,15 @@ class DataConfig(BaseModel):
     """Configuration for dataset parameters and loading behavior.
 
     Attributes:
-        dataset (str): Name of the dataset to be used (e.g., "Hand").
+        dataset (str): Name of the dataset to be used (e.g., "Hand", "40mic").
         img_channels (int): Number of image channels (1 for grayscale, 3 for RGB).
         train_percentage (float): Proportion of data used for training.
         batch_size (int): Batch size for DataLoader.
     """
-    dataset: str = "Hand"
+    dataset: str = "40mic"
     img_channels: int = 3
     train_percentage: float = 0.8
-    batch_size: int = 64
+    batch_size: int = 16
     pass
 
 
