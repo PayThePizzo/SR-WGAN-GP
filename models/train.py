@@ -251,7 +251,7 @@ for epoch in range(epochs):
             )
 
     # Validation
-    if epoch % validating_interval == 0:
+    if (epoch != 0) and (epoch % validating_interval == 0):
         with torch.no_grad():
             mse = 0
             psnr_total = 0
