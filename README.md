@@ -4,7 +4,7 @@
     </h1>
     <p>
         The goal of this project is to develop an interesting, although rudimental, generative model that is capable of
-        upscaling to 64x64, images of medical scans (Breast MRIs, Chest X-Rays, ...) for their low-resoution version of 28x28. The challenge, a part from achieving stability in training, is to obtain a generator model capable of capturing small details (like ribs or knuckles) without losing the human-perspective of images.
+        upscaling to 64x64, images of medical scans (Breast MRIs, Chest X-Rays, ...) and chemical images, for their low-resoution version of 28x28. The challenge, a part from achieving stability in training, is to obtain a generator model capable of capturing small details (like ribs or knuckles) without losing the human-perspective of images.
     </p>
 </div>
 
@@ -59,37 +59,26 @@ For more details please refer to the `pyproject.toml` file
 
 The following features have been implemented for the current project
 
-- [ ] Configuration
+- [X] Configuration
   - [X] Configuration parser module `/config/config_parser.py` that reads from `/config/config.yaml`
-  - [ ] Load config from CLI
-- [ ] Logging
-  - [X] Automatic logging through Tensorboard of losses, images and metrics during training
-  - [ ] Recording logs in separate .csv file
-- [ ] Input
-  - [ ] Type
-    - [ ] 1 Channel images
+- [X] Logging
+  - [X] Automatic logging through Tensorboard of losses, images and metrics during trainin
+- [X] Input
+  - [X] Type
     - [X] 3 Channel images (standard RGB)
   - [X] Loading with ad-hoc module
-- [ ] Preprocessing
+- [X] Preprocessing
   - [X] Normalization
   - [X] Grayscale
-  - [ ] Gaussian Noise
-  - [ ] X/Y Flip
-  - [ ] Rotation
-- [ ] Generator Models
-  - [ ] Classic GAN Generator
-  - [X] WGAN generator
-  - [ ] Advanced SR WGAN Generator (Residual blocks, progessive etc...)
-- [ ] Critic Models
-  - [ ] Classica GAN Critic
-  - [X] WGAN critic with weight clip or gradient penalty
-  - [ ] Advanced SR WGAN Critic
-- [ ] Losses
-  - [ ] Generator
+- [X] Generator Models
+  - [X] Basic SR WGAN Generator
+- [X] Critic Models
+  - [X] WGAN critic with gradient penalty
+- [X] Losses
+  - [X] Generator
     - [X] Adversary loss
     - [X] Pixel-wise L1 loss
-    - [ ] Loss based on VGG
-  - [ ] Critic
+  - [X] Critic
     - [X] Wasserstein distance
     - [X] Gradient penalty
 - [X] Training loop
@@ -133,7 +122,7 @@ Before doing anything make sure your project looks like this, or just create the
 
 ```
 
-Then to ensure we have the data:
+Then to ensure we have the data (in case of using MedicalMNIST):
 
 - You must retrieve the dataset from [here](https://www.kaggle.com/datasets/andrewmvd/medical-mnist/data) and unpack it
 - Enter the main folder where the other subcategories are present (`BreastMRI`, `CXR`, ...)
@@ -182,6 +171,7 @@ This should look like this in the end:
 
 ```
 
+In case of using `40mic`, we have an alternative but similar pipeline.
 This is needed for the data to be loaded. The very next thing to do is to check the `config.yaml` file:
 
 ```yaml
@@ -190,7 +180,7 @@ logging:
   image_log_count: 16
 
 data:
-  dataset: "CXR"            # Folder to load the train set
+  dataset: "40mic"            # Folder to load the train set
   img_channels: 3
   train_percentage: 0.9
   batch_size: 16
@@ -264,7 +254,7 @@ We have two things we can do with our project: Train and Test
 After having determined the configuration, for which we can modify the `config.yaml` file, we can run our project with
 
 ```bash
-#
+# Train the model
 python models/train.py
 ```
 
@@ -274,18 +264,18 @@ This will start the execution and create the following folders:
 /
 ...
 |- logs/
-    |- [MODEL NAME]/
+    |- [MODEL NAME]_[DATASET]_[TIME]/
         |- fake/
         |- metrics/
         |- real/
 ...
 |- runs /  
-    |- [MODEL NAME]/
+    |- [MODEL NAME]_[DATASET]_[TIME]/
         |- config.yaml
 ...
 ```
 
-Where `[MODEL NAME]` is the name generated for the current model.
+Where `[MODEL NAME]_[DATASET]_[TIME]` is the name generated for the current run.
 
 To see how the training is going we can just use tensorboard where everything is plotted for us:
 
@@ -317,7 +307,7 @@ Now it is time to run the tests. We just need to find the folder in which out mo
 python models/test.py runs/[MODEL NAME]/
 ```
 
-This generates a `benchmark.csv` inside the folder, along with an `output/` folder where the generated and test images are copied to.
+This generates a `benchmark.csv` inside the folder, along with an `output/` folder where the generated and test images are copied to separated folders.
 Thus, this results in the following thing:
 
 ```txt
@@ -340,7 +330,7 @@ Thus, this results in the following thing:
 ...
 ```
 
-And also prints a summary over the whole test set:
+And also prints a summary, containing the average scores, over the whole test set:
 
 ```bash
 ======== Test Set Evaluation ========

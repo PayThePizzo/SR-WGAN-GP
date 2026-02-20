@@ -1,5 +1,5 @@
 logging:
-  interval: 5
+  interval: 10
   image_log_count: 16
 
 data:
@@ -24,10 +24,10 @@ preprocessing:
   gaussian_p: 0.1
 
 training:
-  epochs: 50
+  epochs: 100
 
 validating:
-  interval: 5
+  interval: 10
 
 generator:
   mode: "classic"
@@ -43,7 +43,7 @@ critic:
   beta_1: 0.0
   beta_2: 0.9
   lambda_wasserstrein: 1.0
-  lambda_gp: 10
+  lambda_gp: 8
   weight_clip: 0.01           
   c_iter: 5
 
