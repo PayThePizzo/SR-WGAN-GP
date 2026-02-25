@@ -1,6 +1,6 @@
 <div align="center">
     <h1>
-        Super-Resolution of Medical MNIST Images Using Wasserstein Generative Adversarial Networks and Gradient Penalty (SR-WGAN-GP)
+        Super-Resolution of Images Using Wasserstein Generative Adversarial Networks and Gradient Penalty (SR-WGAN-GP)
     </h1>
     <p>
         The goal of this project is to develop an interesting, although rudimental, generative model that is capable of
@@ -30,7 +30,7 @@
 
 The project follows the following structure:
 
-- **Goal**: Build and train a Wasserstein GAN (WGAN) to enhance the resolution of Medical MNIST images. Specifically, the project will focus on generating higher-resolution (e.g., 64x64) versions of the original downsampled Medical MNIST images which are 28x28 pixels. This super-resolution technique should be able to show how WGANs can be applied to improve image quality, while leveraging the benefits of the Wasserstein distance to stabilize GAN training (along with GP).
+- **Goal**: Build and train a Wasserstein GAN (WGAN) to enhance the resolution of small images. Specifically, the project will focus on generating higher-resolution (e.g., 64x64) versions of the original downsampled images which are 28x28 pixels. This super-resolution technique should be able to show how WGANs can be applied to improve image quality, while leveraging the benefits of the Wasserstein distance to stabilize GAN training (along with GP).
 - **Expected Implementation Steps**: The implementation should focus on developing and implementing a WGAN architecture, including both the Generator and Critic (the WGAN version of the Discriminator), the Wasserstein loss function with gradient penalty. This can also include pooling layers and/or optimizers like Adam (although they should not be the focus of this implementation). The technological stack I would like to use is the usual Python, Numpy, PyTorch (or tensorflow depending on which is easier to use with my GPU), Tensorboard (which allows tracking and visualizing metrics such as loss and accuracy), OpenCV (for image manipulation).
 - **Model Evaluation**: The quality of the generated images could be evaluated using qualitative (visual inspection) and quantitative (metrics like Peak Signal-To-Noise Ratio, Structural Similarity Index Measure, etc...) methods.
 
